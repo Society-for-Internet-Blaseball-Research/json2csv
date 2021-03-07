@@ -105,7 +105,6 @@ function jsonFrom(input) {
   try {
     result = JSON.parse(string);
   } catch (err) {
-    console.log(err);
   }
 
   // See json5.org for a definition, and tests/json5/canonical.json for
@@ -116,7 +115,6 @@ function jsonFrom(input) {
       result = JSON5.parse(string);
       console.log("Yep: it was JSON5.");
     } catch (err) {
-      console.log(err);
     }
   }
 
@@ -129,7 +127,6 @@ function jsonFrom(input) {
       result = JSON.parse(relaxed);
       console.log("Yep: removing trailing commas worked!");
     } catch (err) {
-      console.log(err);
     }
   }
 
@@ -151,7 +148,7 @@ function jsonFrom(input) {
         result = JSON5.parse(escaped);
         console.log("Yep: it had newlines in the JSON, and needed JSON5 parsing!");
       } catch (err) {
-        console.log(err);
+        console.log("All parsing methods failed");
       }
     }
   }
@@ -171,7 +168,6 @@ function jsonFrom(input) {
       result = JSON.parse(lines)
       console.log("Yep: it was JSON lines!")
     } catch (err) {
-      console.log(err);
       if (lines.length < 5000) console.log(lines);
     }
   }
@@ -219,14 +215,19 @@ const server = http.createServer((req, res) => {
         // The whole response has been received. Print out the result.
         resp.on('end', () => {
           var output = doCSV(jsonFrom(data));
-          res.end(output);
+          console.log(output);
+          if(output == null || output.trim() == "") {
+            res.end("Output not JSON: " + data);
+          } else {
+            res.end(output);
+          }
         });
       }
     }).on("error", (err) => {
       console.log("Error: " + err.message);
     });
   } catch (e) {
-     res.end();
+     res.end("Not a valid API URL.");
   }
 
 }).listen(3000);
