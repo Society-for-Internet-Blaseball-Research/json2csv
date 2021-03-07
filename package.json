@@ -1,0 +1,15 @@
+{
+  "name": "json2csv",
+  "version": "1.0.0",
+  "description": "Converts SIBR JSON to CSV",
+  "author": "DLareau <dlareau@cmu.edu>",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "jquery-csv": "latest",
+    "lodash": "latest",
+    "jquery-extend": "latest"
+  }
+}
