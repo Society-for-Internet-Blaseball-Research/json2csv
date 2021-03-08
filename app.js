@@ -215,7 +215,6 @@ const server = http.createServer((req, res) => {
         // The whole response has been received. Print out the result.
         resp.on('end', () => {
           var output = doCSV(jsonFrom(data));
-          console.log(output);
           if(output == null || output.trim() == "") {
             res.end("Output not JSON: " + data);
           } else {
