@@ -195,7 +195,7 @@ const server = http.createServer((req, res) => {
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain; charset=utf-8');
   if(req.url.startsWith("/database") || req.url.startsWith("/events") || req.url.startsWith("/api")){
-    url = "https://blaseball.com" + req.url;
+    url = "https://www.blaseball.com" + req.url;
   } else {
     url = "https://api.sibr.dev" + req.url;
   }
