@@ -19,6 +19,6 @@ jobs:
         with:
           push: true
           tags: |
-            ghcr.io/sibr/json2csv:${{ env.BRANCH_NAME }}
-            ghcr.io/sibr/json2csv:${{ github.sha }}
-            ghcr.io/sibr/json2csv:latest
+            ghcr.io/society-for-internet-blaseball-research/json2csv:${{ env.BRANCH_NAME }}
+            ghcr.io/society-for-internet-blaseball-research/json2csv:${{ github.sha }}
+            ghcr.io/society-for-internet-blaseball-research/json2csv:latest
