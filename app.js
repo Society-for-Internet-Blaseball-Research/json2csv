@@ -196,8 +196,10 @@ const server = http.createServer((req, res) => {
   res.setHeader('Content-Type', 'text/plain; charset=utf-8');
   if(req.url.startsWith("/database") || req.url.startsWith("/events") || req.url.startsWith("/api")){
     url = "https://www.blaseball.com" + req.url;
+  } else if (req.url.startsWith("/old")) {
+    url = "https://api.sibr.dev" + req.url.slice(4);
   } else {
-    url = "https://api.sibr.dev" + req.url;
+    url = "https://api2.sibr.dev" + req.url;
   }
   try {
     console.log(url);
