@@ -9,7 +9,8 @@
   },
   "dependencies": {
     "jquery-csv": "latest",
+    "jquery-extend": "latest",
     "lodash": "latest",
-    "jquery-extend": "latest"
+    "request": "^2.88.2"
   }
 }

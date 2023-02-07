@@ -1,8 +1,8 @@
 const http = require('http');
-const https = require('https')
 var extend = require("jquery-extend");
 var csv = require('jquery-csv');
 var _ = require('lodash');
+const request = require('request');
 
 function parse_object(obj, path) {
   if (path == undefined)
@@ -203,29 +203,17 @@ const server = http.createServer((req, res) => {
   }
   try {
     console.log(url);
-    https.get(url, (resp) => {
-      if (resp.statusCode == 302) {
+    request({method: 'GET', uri: url, gzip: true}, function (error, response, body) {
+      if (response && response.statusCode == 302) {
         res.end();
       } else {
-        let data = '';
-
-        // A chunk of data has been received.
-        resp.on('data', (chunk) => {
-          data += chunk;
-        });
-
-        // The whole response has been received. Print out the result.
-        resp.on('end', () => {
-          var output = doCSV(jsonFrom(data));
-          if(output == null || output.trim() == "") {
-            res.end("Output not JSON: " + data);
-          } else {
-            res.end(output);
-          }
-        });
+        var output = doCSV(jsonFrom(body));
+        if(output == null || output.trim() == "") {
+          res.end("Output not JSON: " + body);
+        } else {
+          res.end(output);
+        }
       }
-    }).on("error", (err) => {
-      console.log("Error: " + err.message);
     });
   } catch (e) {
      res.end("Not a valid API URL.");
